@@ -1,0 +1,6 @@
+- html:
+  - head:
+    - title: Basic Document
+  - body:
+    - h1: First Level Heading
+    - p: A paragraph of text.
