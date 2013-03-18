@@ -8,7 +8,10 @@ class @Yaml2Html
   convert: (yamlString) ->
     (new @htmlFormatterPackage.HtmlFormatter).format @parser.parse('' + yamlString)
 
+  convertFile: (filename) ->
+    @convert (require 'fs').readFileSync file
+
 if process.argv[1] is __filename
   converter = new @Yaml2Html()
   fs = require 'fs'
-  console.log converter.convert fs.readFileSync file for file in process.argv[2..]
+  process.stdout.write converter.convertFile file for file in process.argv[2..]
