@@ -1,25 +1,14 @@
+#!/usr/bin/env coffee
 
 class @Yaml2Html
 
   parser: require 'yamljs'
+  htmlFormatterPackage: require (require 'path').join(__dirname, 'htmlFormatter.coffee')
 
   convert: (yamlString) ->
-    @joinlist @parser.parse('' + yamlString), '', ''
+    (new @htmlFormatterPackage.HtmlFormatter).format @parser.parse('' + yamlString)
 
-  joinlist: (list, indent) ->
-    got = if indent.length > 0 then '\n' else ''
-    got += (@inside value, indent) for value in list
-    got
-
-  inside: (object, indent) ->
-    got = ''
-    got += @pair(key, value, indent) for key, value of object
-    got
-
-  pair: (key, value, indent) ->
-    indent + '<' + key + '>' + @value(value, indent) + '</' + key + '>\n'
-
-  value: (value, indent) ->
-    if 'object' is typeof value
-    then (@joinlist value, '    ' + indent) + indent
-    else value
+if process.argv[1] is __filename
+  converter = new @Yaml2Html()
+  fs = require 'fs'
+  console.log converter.convert fs.readFileSync file for file in process.argv[2..]
