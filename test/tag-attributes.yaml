@@ -1,14 +1,14 @@
 - p:
-    class: some class
-    id: an-id
-#    onmouseover: "@style.backgroundColor = 'lightgray'"
-#    onmouseout: "@style.backgroundColor = 'white'"
-    /: |
+    attributes:
+      class: some class
+      id: an-id
+    content: |
 
       This is a paragraph of text starting with a newline
       that is set to preserve newlines in the originating YAML file.
 
 - p:
-    /: This text is in a paragraph tag without attributes.
+    content: This tag has content but no attributes.
 - input:
-    value: This tag has an attribute but no content.
+    attributes:
+      value: This tag has an attribute but no content.

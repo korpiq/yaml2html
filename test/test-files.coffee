@@ -21,7 +21,7 @@ testFromFile = (testname) ->
   # (require 'fs').writeFileSync __filename.replace(/coffee$/, 'out'), actualHtmlString
 
   ok actualHtmlString == expectedHtmlString,
-    " got: '" + actualHtmlString + "', expected: '" + expectedHtmlString + "'"
+    "got:\n'" + actualHtmlString + "', expected:\n'" + expectedHtmlString + "'"
 
 testFile = (testname) ->
   result = '?'

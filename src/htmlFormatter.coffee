@@ -24,10 +24,13 @@ class @HtmlFormatter
     (@tag(key, value, indent) for key, value of object).join ''
 
   tag: (key, value, indent) ->
+    indent + '<' + key +
     [ attributes, content ] =
       if @isMap value
-      then @attributesToTagAndValue(value)
-      else [ '', @value(value, indent) ]
+      then [
+          if value.attributes then @attributes(value.attributes) else '',
+          if value.content then value.content else ''
+      ] else [ '', @value(value, indent) ]
 
     indent + '<' + key + attributes +
     (
@@ -38,14 +41,11 @@ class @HtmlFormatter
       else '/'
     ) + '>\n'
 
-  attributesToTagAndValue: (attributes) ->
-    [
-      ((@attribute key, value for key, value of attributes).join ''),
-      attributes['/']
-    ]
+  attributes: (attributes) ->
+    (@attribute key, value for key, value of attributes).join ''
 
   attribute: (name, value) ->
-    if name is '/' then '' else ' ' + name + '="' + value + '"'
+    ' ' + name + '="' + value + '"'
 
   value: (value, indent) ->
     if 'object' is typeof value
