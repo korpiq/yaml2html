@@ -35,7 +35,7 @@ class @HtmlFormatter
     indent + '<' + key + attributes +
     (
       if content
-      then '>' + content + '</' + key
+      then '>' + content + '</' + key.replace(/\s.*/, '')
       else if attributes
       then ' /'
       else '/'
