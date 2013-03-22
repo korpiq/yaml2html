@@ -31,11 +31,10 @@ testResult = (yamlString, expectedHtmlString) ->
     testContents(yamlString, expectedHtmlString)
     'ok'
   catch e
-    e
+    e.message
 
 testContents = (yamlString, expectedHtmlString) ->
   converter = new yaml2html.Yaml2Html()
   actualHtmlString = converter.convert(yamlString)
-
   ok actualHtmlString == '' + expectedHtmlString,
     "got:\n'" + actualHtmlString + "', expected:\n'" + expectedHtmlString + "'"
