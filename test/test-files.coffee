@@ -16,14 +16,15 @@ testIfYamlFile = (filename) ->
   test testname if testname != filename
 
 test = (testname) ->
-  readFile testname + '.yaml', (err, yamlString) ->
-    throw err if err
-    readFile testname + '.html', (err, htmlString) ->
-      throw err if err
+  readFile testname + '.yaml', (yamlString) ->
+    readFile testname + '.html', (htmlString) ->
       console.log testname + ': ' + testResult(yamlString, htmlString)
 
 readFile = (filename, callback) ->
-  fs.readFile path.join(__dirname, filename), callback
+  fullname = path.join(__dirname, filename)
+  fs.readFile fullname, (err, data) ->
+    throw "failed to read file '#{fullname}': " + err if err
+    callback '' + data
 
 testResult = (yamlString, expectedHtmlString) ->
   try
