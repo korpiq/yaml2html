@@ -24,7 +24,6 @@ class @HtmlFormatter
     (@tag(key, value, indent) for key, value of object).join ''
 
   tag: (key, value, indent) ->
-    indent + '<' + key +
     [ attributes, content ] =
       if @isMap value
       then [
